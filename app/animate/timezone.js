@@ -17,5 +17,10 @@ export default function TimeZone() {
     fetcher
   );
 
-  return JSON.stringify(data);
+  return (
+    <>
+      <p>{data.timezone}</p>
+      <p>{data.countryISO3}</p>
+    </>
+  );
 }
