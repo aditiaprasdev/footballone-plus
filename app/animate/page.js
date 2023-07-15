@@ -11,7 +11,6 @@ export default function Animate() {
           <p className="font-semibold text-lg">Todays's Matches</p>
           <Times />
           <p>{timezone}</p>
-          <TimeZone />
         </div>
         <Lists />
       </div>
