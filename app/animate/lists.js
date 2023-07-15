@@ -47,7 +47,6 @@ export default function Lists({ tz, code }) {
 
   return (
     <>
-      <p>{query}</p>
       {res.responses.leagues.map((match) => (
         <div className="py-5" key={match.id}>
           <div className="mb-5 flex items-center gap-2">
