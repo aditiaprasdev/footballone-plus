@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.move{
+    animation: mymove 3s infinite;
+  }
+  @keyframes mymove {
+   0%{transform: translateX(0px);}
+   50%{transform: translateX(28px);} 
+   100%{transform: translateX(0px);} 
+  }
