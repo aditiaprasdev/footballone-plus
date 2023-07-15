@@ -12,10 +12,13 @@ const fetcher = (url) =>
   }).then((res) => res.json());
 
 export default function TimeZone() {
-  const { data } = useSWR(
+  const { data, error, isLoading } = useSWR(
     `https://find-any-ip-address-or-domain-location-world-wide.p.rapidapi.com/iplocation?apikey=873dbe322aea47f89dcf729dcc8f60e8`,
     fetcher
   );
+
+  if (error) return <p>Error</p>;
+  if (isLoading) return <p>Loading</p>;
 
   return (
     <>
