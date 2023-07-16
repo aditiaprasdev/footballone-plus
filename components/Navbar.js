@@ -10,23 +10,12 @@ import { HiMenu } from "react-icons/hi";
 import { FaRunning } from "react-icons/fa";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useState } from "react";
+import DarkMode from "./darkmode";
 
 export default function Navbar() {
   const pathname = usePathname();
-  console.log(pathname);
   const [open, setOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(true);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <>
@@ -52,8 +41,8 @@ export default function Navbar() {
                 href="/matches"
                 className={`${
                   pathname == "/matches"
-                    ? "text-indigo-500 underline decoration-2 underline-offset-[25px]"
-                    : "hover:text-indigo-500 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
+                    ? "text-indigo-500 dark:text-lime-400 underline decoration-2 underline-offset-[25px]"
+                    : "hover:text-indigo-500 dark:hover:text-lime-400 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
                 }`}
               >
                 Matches
@@ -62,8 +51,8 @@ export default function Navbar() {
                 href="/competitions"
                 className={`${
                   pathname == "/competitions"
-                    ? "text-indigo-500 underline decoration-2 underline-offset-[25px]"
-                    : "hover:text-indigo-500 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
+                    ? "text-indigo-500 dark:text-lime-400 underline decoration-2 underline-offset-[25px]"
+                    : "hover:text-indigo-500 dark:hover:text-lime-400 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
                 }`}
               >
                 Competitions
@@ -72,8 +61,8 @@ export default function Navbar() {
                 href="/teams"
                 className={`${
                   pathname == "/teams"
-                    ? "text-indigo-500 underline decoration-2 underline-offset-[25px]"
-                    : "hover:text-indigo-500 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
+                    ? "text-indigo-500 dark:text-lime-400 underline decoration-2 underline-offset-[25px]"
+                    : "hover:text-indigo-500 dark:hover:text-lime-400 hover:underline hover:decoration-2 hover:underline-offset-[25px]"
                 }`}
               >
                 Teams
@@ -82,17 +71,16 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center justify-end space-x-3 lg:w-1/4">
-            <BsGithub className="text-2xl hover:text-indigo-500"></BsGithub>
+            <BsGithub className="text-2xl hover:text-indigo-500 dark:hover:text-lime-400"></BsGithub>
+            <DarkMode />
             <button
               className="block lg:hidden"
               onClick={() => {
                 setOpen(!open);
               }}
             >
-              <HiMenu className="text-2xl hover:text-indigo-500"></HiMenu>
+              <HiMenu className="text-2xl hover:text-indigo-500 dark:hover:text-lime-400"></HiMenu>
             </button>
-            <button onClick={() => setTheme("light")}>Light</button>
-            <button onClick={() => setTheme("dark")}>Dark</button>
           </div>
         </nav>
       </header>
@@ -101,8 +89,8 @@ export default function Navbar() {
       <div
         className={`${
           open
-            ? "absolute sticky top-16 z-10 block flex h-[200px] w-full flex-col items-center justify-center space-y-3 border-t bg-white/80 px-5 shadow-sm backdrop-blur-sm md:px-[13%]"
-            : "absolute sticky top-16 z-10 flex hidden h-[200px] w-full flex-col items-center justify-center space-y-3 border-t bg-white/80 px-10 shadow-sm backdrop-blur-sm"
+            ? "absolute sticky top-16 z-10 block flex h-[200px] w-full flex-col items-center justify-center space-y-3 border-t dark:border-b dark:border-b-zinc-700 dark:border-t-zinc-700 bg-white/80 dark:bg-black/80 px-5 shadow-sm backdrop-blur-sm md:px-[13%]"
+            : "absolute sticky top-16 z-10 flex hidden h-[200px] w-full flex-col items-center justify-center space-y-3 border-t dark:border-b dark:border-b-zinc-700 dark:border-t-zinc-700 bg-white/80 dark:bg-black/80 px-10 shadow-sm backdrop-blur-sm"
         }`}
       >
         <Link
@@ -110,7 +98,7 @@ export default function Navbar() {
           onClick={() => {
             setOpen(false);
           }}
-          className="flex w-full items-center justify-between hover:text-indigo-500"
+          className="flex w-full items-center justify-between hover:text-indigo-500 dark:hover:text-lime-400"
         >
           <p>Matches</p>
           <FaRunning></FaRunning>
@@ -121,7 +109,7 @@ export default function Navbar() {
           onClick={() => {
             setOpen(false);
           }}
-          className="flex w-full items-center justify-between hover:text-indigo-500"
+          className="flex w-full items-center justify-between hover:text-indigo-500 dark:hover:text-lime-400"
         >
           <p>Competitions</p>
           <BsTrophyFill></BsTrophyFill>
@@ -132,7 +120,7 @@ export default function Navbar() {
           onClick={() => {
             setOpen(false);
           }}
-          className="flex w-full items-center justify-between hover:text-indigo-500"
+          className="flex w-full items-center justify-between hover:text-indigo-500 dark:hover:text-lime-400"
         >
           <p>Teams</p>
           <BsShieldShaded></BsShieldShaded>

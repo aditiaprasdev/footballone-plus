@@ -10,7 +10,9 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 export default function Lists({ tz, code }) {
   const [times, setTimes] = useState(moment());
   const [today, setToday] = useState(times.format("YYYYMMDD"));
-  const [display, setDisplay] = useState(times.format("YYYYMMDD"));
+  const [display, setDisplay] = useState(times.format("LLL"));
+  const [title, setTitle] = useState("Today's Matches");
+  const [active, setActive] = useState("today");
 
   useEffect(() => {
     setInterval(() => setTimes(moment()), 0);
@@ -18,7 +20,6 @@ export default function Lists({ tz, code }) {
 
   const timeZone = tz;
   const ccode = code;
-  // const date = times.format("YYYYMMDD");
   const date = today;
 
   const query = `ccode3=${ccode}` + `&date=${date}` + `&timezone=${timeZone}`;
@@ -50,45 +51,55 @@ export default function Lists({ tz, code }) {
 
   return (
     <>
-      <p className="font-semibold text-lg">Today's Matches</p>
-      <p>{times.format("LLLL")}</p>
-      {/* <p>
-        {display == "increase"
-          ? times.add(1, "days").format("LLLL")
-          : display == "decrease"
-          ? times.add(-1, "days").format("LLLL")
-          : display == "today"
-          ? times.format("LLLL")s
-          : times.format("LLLL")}
-      </p> */}
-      {/* <div className="flex gap-5">
+      <p className="font-semibold text-lg">{title}</p>
+      <p>{display}</p>
+      <div className="flex gap-2 md:gap-5">
         <button
-          className="px-10 py-3 border w-fit hover:border-black rounded-md"
+          className={`${
+            active == "yesterday"
+              ? "bg-black text-white dark:bg-white dark:text-black"
+              : "hover:border-black dark:hover:border-white"
+          } text-sm px-5 md:px-10 md:text-base py-3 border rounded-md dark:border-zinc-600`}
           onClick={() => {
-            setToday(times.add(-1, "days").format("YYYYMMDD")),
-              setDisplay("decrease");
+            setToday(times.add(-1, "days").format("YYYYMMDD"));
+            setDisplay(times.format("LL"));
+            setTitle("Yesterday's Matches");
+            setActive("yesterday");
           }}
         >
           Yesterday
         </button>
         <button
-          className="px-10 py-3 border w-fit hover:border-black rounded-md"
+          className={`${
+            active == "today"
+              ? "bg-black text-white dark:bg-white dark:text-black"
+              : "hover:border-black dark:hover:border-white"
+          } text-sm px-5 md:px-10 md:text-base py-3 border rounded-md dark:border-zinc-600`}
           onClick={() => {
-            setToday(times.format("YYYYMMDD")), setDisplay("today");
+            setToday(times.format("YYYYMMDD"));
+            setDisplay(times.format("LLL"));
+            setTitle("Today's Matches");
+            setActive("today");
           }}
         >
           Today
         </button>
         <button
-          className="px-10 py-3 border w-fit hover:border-black rounded-md"
+          className={`${
+            active == "tomorrow"
+              ? "bg-black text-white dark:bg-white dark:text-black"
+              : "hover:border-black dark:hover:border-white"
+          } text-sm px-5 md:px-10 md:text-base py-3 border rounded-md dark:border-zinc-600`}
           onClick={() => {
-            setToday(times.add(1, "days").format("YYYYMMDD")),
-              setDisplay("increase");
+            setToday(times.add(1, "days").format("YYYYMMDD"));
+            setDisplay(times.format("LL"));
+            setTitle("Tommorow's Matches");
+            setActive("tomorrow");
           }}
         >
           Tomorrow
         </button>
-      </div> */}
+      </div>
       {res.responses.leagues.map((match) => (
         <div className="py-5" key={match.id}>
           <div className="mb-5 flex items-center gap-2">
@@ -97,9 +108,9 @@ export default function Lists({ tz, code }) {
               width={30}
               height={30}
             ></img>
-            <p className="font-bold">{match.ccode}</p>
+            <p className="font-bold text-sm md:text-base">{match.ccode}</p>
             <p>-</p>
-            <p className="">{match.name}</p>
+            <p className="text-sm md:text-base">{match.name}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:gap-10 gap-5">
             {match.matches.map((res) => (
