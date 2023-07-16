@@ -13,7 +13,7 @@ export default function MCard({
 }) {
   return (
     <>
-      <div className="grid grid-cols-6 gap-3  w-full py-4 pl-4 hover:shadow-md hover:border-black border dark:bg-zinc-800 dark:border-zinc-800 dark:hover:border-zinc-500 rounded-md justify-between">
+      <div className="grid grid-cols-6 gap-3 w-full py-4 pl-4 hover:shadow-md hover:border-black border dark:bg-zinc-800 dark:border-zinc-800 dark:hover:border-zinc-500 rounded-md justify-between hover:transition hover:ease-in-out hover:duration-200">
         <div className="col-span-4">
           <div className="grid gap-3">
             <div className="grid grid-cols-4 w-full items-center">
