@@ -2,17 +2,21 @@
 import useSWR from "swr";
 import Lists from "./lists";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url) =>
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": `${process.env.NEXT_PUBLIC_API_KEY_LOC}`,
+      "X-RapidAPI-Host":
+        "find-any-ip-address-or-domain-location-world-wide.p.rapidapi.com",
+    },
+  }).then((res) => res.json());
 
 export default function Zone() {
   const { data, error, isLoading } = useSWR(
-    `/api/onefootball/mylocation`,
+    `https://find-any-ip-address-or-domain-location-world-wide.p.rapidapi.com/iplocation?apikey=${process.env.NEXT_PUBLIC_API_KEY_LOCPARAMS}`,
     fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
+    { revalidateOnFocus: false }
   );
 
   if (error) return <p>Error</p>;
@@ -20,9 +24,7 @@ export default function Zone() {
 
   return (
     <>
-      <p>{data.country_code3}</p>
-      <p>{data.time_zone.name}</p>
-      <Lists tz={data.time_zone.name} code={data.country_code3} />
+      <Lists tz={data.timezone} code={data.countryISO3} />
     </>
   );
 }
