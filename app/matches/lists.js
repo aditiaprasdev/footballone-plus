@@ -5,7 +5,6 @@ import useSWR from "swr";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
 import Times from "./time";
-import { kebabCase } from "lodash";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
