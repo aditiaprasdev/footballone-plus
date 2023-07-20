@@ -4,6 +4,8 @@ import moment from "moment-timezone";
 import useSWR from "swr";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import React, { useEffect, useState } from "react";
+import Times from "./time";
+import { kebabCase } from "lodash";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -52,7 +54,7 @@ export default function Lists({ tz, code }) {
   return (
     <>
       <p className="font-semibold text-lg">{title}</p>
-      <p>{display}</p>
+      <p>{display == "today" ? <Times /> : display}</p>
       <div className="flex gap-2 md:gap-5">
         <button
           className={`${
@@ -77,7 +79,7 @@ export default function Lists({ tz, code }) {
           } text-sm px-5 md:px-10 md:text-base py-3 border rounded-md dark:border-zinc-600`}
           onClick={() => {
             setToday(times.format("YYYYMMDD"));
-            setDisplay(times.format("LLL"));
+            setDisplay("today");
             setTitle("Today's Matches");
             setActive("today");
           }}
