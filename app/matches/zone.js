@@ -16,7 +16,7 @@ export default function Zone() {
 
   return (
     <>
-      <Lists tz={data.time_zone.name} code={data.country_code3} />
+      <Lists tz={data.time_zone.name} code={data.country_code3} country={data.country_name} flag={data.country_flag} />
     </>
   );
 }

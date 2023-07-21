@@ -8,7 +8,7 @@ import Times from "./time";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function Lists({ tz, code }) {
+export default function Lists({ tz, code, country, flag }) {
   const [times, setTimes] = useState(moment());
   const [today, setToday] = useState(times.format("YYYYMMDD"));
   const [display, setDisplay] = useState(times.format("LLL"));
@@ -52,6 +52,10 @@ export default function Lists({ tz, code }) {
 
   return (
     <>
+      <div className="flex gap-2 items-center w-full justify-end">
+        <p className="text-sm">{country}</p>
+        <img src={flag} width={15} height={10} alt="" />
+      </div>
       <p className="font-semibold text-lg">{title}</p>
       <p>{display == "today" ? <Times /> : display}</p>
       <div className="flex gap-2 md:gap-5">
