@@ -4,11 +4,13 @@ import Lists from "./lists";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function Zone() {
+export default function Zone({ clientIp }) {
   const { data, error, isLoading } = useSWR(
-    `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.NEXT_PUBLIC_API_KEY_LOCATION}`,
+    `/api/onefootball/mylocation?ip=${clientIp}`,
     fetcher,
-    { revalidateOnFocus: false }
+    {
+      revalidateOnFocus: false,
+    }
   );
 
   if (error) return <p>Error</p>;
@@ -16,7 +18,12 @@ export default function Zone() {
 
   return (
     <>
-      <Lists tz={data.time_zone.name} code={data.country_code3} country={data.country_name} flag={data.country_flag} />
+      <Lists
+        tz={data.time_zone.name}
+        code={data.country_code3}
+        country={data.country_name}
+        flag={data.country_flag}
+      />
     </>
   );
 }
