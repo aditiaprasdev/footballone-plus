@@ -10,6 +10,8 @@ export default function Zone({ clientIp }) {
     fetcher,
     {
       revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false,
     }
   );
 

@@ -7,9 +7,13 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Loca() {
   const { data, error, isLoading } = useSWR(
-    `https://api.ipify.org/?format=json`,
+    `https://api64.ipify.org?format=json`,
     fetcher,
-    { revalidateOnFocus: false }
+    {
+      revalidateOnFocus: false,
+      revalidateIfStale: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   if (error) return <p>Error</p>;
